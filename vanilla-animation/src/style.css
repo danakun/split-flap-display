@@ -6,6 +6,24 @@
     --flap-divider: #222222;
 }
 
+/* Reduced motion preference detection */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+      --animation-duration: 0ms; /* No duration for immediate transition */
+      --flip-timing: linear; /* Simpler timing function */
+  }
+  
+  /* Override flip animation to be instant for reduced motion */
+  @keyframes flip {
+      0% {
+          transform: rotateX(0deg);
+      }
+      100% {
+          transform: rotateX(180deg);
+      }
+  }
+  
+
 * {
     margin: 0;
     padding: 0;

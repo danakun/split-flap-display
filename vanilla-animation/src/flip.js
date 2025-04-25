@@ -1,13 +1,16 @@
    // Constants
    const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;-+/!?@#$%&*() ";
-   const ANIMATION_DURATION = 180; // ms - longer for more realistic movement
+   const ANIMATION_DURATION = 180; // ms 
    const FLIP_TIMING = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // Bouncy, realistic curve
    
    // State
    const state = {
-       text: "LOCOMOTIVE STUDIO",
-       twoRowMode: false,
-       isAnimating: false
+      //  text: "FLUID ANIMATION",
+      //  twoRowMode: false,
+      //  isAnimating: false
+      textRow1: "FLUID ANIMATION",
+      textRow2: "IMMERSIVE DESIGN",
+      isAnimating: false
    };
    
    // DOM Elements
@@ -17,7 +20,7 @@
        phraseBtns: document.querySelectorAll('.phrase-btn'),
        textInput: document.getElementById('textInput'),
        animateBtn: document.getElementById('animateBtn'),
-       toggleRowBtn: document.getElementById('toggleRowBtn')
+      //  toggleRowBtn: document.getElementById('toggleRowBtn')
    };
    
    // Create a single flap element
@@ -55,24 +58,27 @@
        CHARSET[Math.floor(Math.random() * CHARSET.length)];
    
    // Format text into one or two rows
-   const formatTextForRows = (text) => {
-       if (!state.twoRowMode) return [text];
+  //  const formatTextForRows = (text) => {
+  //      if (!state.twoRowMode) return [text];
        
-       const middleIndex = Math.floor(text.length / 2);
-       const spaceIndex = text.indexOf(' ', middleIndex - 5);
+  //      const middleIndex = Math.floor(text.length / 2);
+  //      const spaceIndex = text.indexOf(' ', middleIndex - 5);
        
-       if (spaceIndex === -1 || spaceIndex > middleIndex + 5) {
-           return [
-               text.substring(0, middleIndex).trim(),
-               text.substring(middleIndex).trim()
-           ];
-       }
+  //      if (spaceIndex === -1 || spaceIndex > middleIndex + 5) {
+  //          return [
+  //              text.substring(0, middleIndex).trim(),
+  //              text.substring(middleIndex).trim()
+  //          ];
+  //      }
        
-       return [
-           text.substring(0, spaceIndex).trim(),
-           text.substring(spaceIndex).trim()
-       ];
-   };
+  //      return [
+  //          text.substring(0, spaceIndex).trim(),
+  //          text.substring(spaceIndex).trim()
+  //      ];
+  //  };
+  const getRowsText = () => {
+    return [state.textRow1, state.textRow2];
+};
    
        // Animate a single flap
    const animateFlap = (flap, targetChar, delay, onComplete) => {
@@ -165,67 +171,140 @@
    };
    
    // Animate all flaps for a text
-   const animateText = (forceAll = false) => {
-       if (state.isAnimating) return;
-       state.isAnimating = true;
+  //  const animateText = (forceAll = false) => {
+  //      if (state.isAnimating) return;
+  //      state.isAnimating = true;
        
-       // Format text for rows
-       const textRows = formatTextForRows(state.text);
+  //      // Format text for rows
+  //      const textRows = formatTextForRows(state.text);
        
-       // Show/hide second row based on mode
-       elements.row2.classList.toggle('hidden', !state.twoRowMode);
+  //      // Show/hide second row based on mode
+  //      elements.row2.classList.toggle('hidden', !state.twoRowMode);
        
-       // Track animations for completion
-       let pendingAnimations = 0;
+  //      // Track animations for completion
+  //      let pendingAnimations = 0;
        
-       // For each row
-       textRows.forEach((text, rowIndex) => {
-           const row = rowIndex === 0 ? elements.row1 : elements.row2;
-           const flaps = row.querySelectorAll('.flap');
+  //      // For each row
+  //      textRows.forEach((text, rowIndex) => {
+  //          const row = rowIndex === 0 ? elements.row1 : elements.row2;
+  //          const flaps = row.querySelectorAll('.flap');
            
-           // Center text in row
-           const padding = Math.floor((flaps.length - text.length) / 2);
+  //          // Center text in row
+  //          const padding = Math.floor((flaps.length - text.length) / 2);
            
-           // Animate each flap in the row
-           flaps.forEach((flap, i) => {
-               // Determine target character
-               let targetChar = ' ';
-               const textIndex = i - padding;
-               if (textIndex >= 0 && textIndex < text.length) {
-                   targetChar = text[textIndex];
-               }
+  //          // Animate each flap in the row
+  //          flaps.forEach((flap, i) => {
+  //              // Determine target character
+  //              let targetChar = ' ';
+  //              const textIndex = i - padding;
+  //              if (textIndex >= 0 && textIndex < text.length) {
+  //                  targetChar = text[textIndex];
+  //              }
                
-               // Skip if character already matches and not forcing all
-               if (!forceAll && flap.querySelector('.flap-top').textContent === targetChar) {
-                   return;
-               }
+  //              // Skip if character already matches and not forcing all
+  //              if (!forceAll && flap.querySelector('.flap-top').textContent === targetChar) {
+  //                  return;
+  //              }
                
-               // Track this animation
-               pendingAnimations++;
+  //              // Track this animation
+  //              pendingAnimations++;
                
-               // Calculate delay with center-out pattern
-               const distFromCenter = Math.abs(i - Math.floor(flaps.length / 2));
-               const delay = distFromCenter * 30; // 30ms per unit from center
+  //              // Calculate delay with center-out pattern
+  //              const distFromCenter = Math.abs(i - Math.floor(flaps.length / 2));
+  //              const delay = distFromCenter * 30; // 30ms per unit from center
                
-               // Animate this flap
-               animateFlap(flap, targetChar, delay, () => {
-                   pendingAnimations--;
-                   if (pendingAnimations === 0) {
-                       state.isAnimating = false;
-                   }
-               });
-           });
-       });
+  //              // Animate this flap
+  //              animateFlap(flap, targetChar, delay, () => {
+  //                  pendingAnimations--;
+  //                  if (pendingAnimations === 0) {
+  //                      state.isAnimating = false;
+  //                  }
+  //              });
+  //          });
+  //      });
        
-       // If no animations were needed, reset state
-       if (pendingAnimations === 0) {
-           state.isAnimating = false;
-       }
-   };
-   
+  //      // If no animations were needed, reset state
+  //      if (pendingAnimations === 0) {
+  //          state.isAnimating = false;
+  //      }
+  //  };
+  const animateText = (forceAll = false) => {
+    if (state.isAnimating) return;
+    state.isAnimating = true;
+    
+    // Get text for rows
+    const textRows = [state.textRow1, state.textRow2];
+    
+    // Track animations for completion
+    let pendingAnimations = 0;
+    
+    // For each row
+    textRows.forEach((text, rowIndex) => {
+        const row = rowIndex === 0 ? elements.row1 : elements.row2;
+        const flaps = row.querySelectorAll('.flap');
+        
+        // Center text in row
+        const padding = Math.floor((flaps.length - text.length) / 2);
+        
+        // Animate each flap in the row
+        flaps.forEach((flap, i) => {
+            // Determine target character
+            let targetChar = ' ';
+            const textIndex = i - padding;
+            if (textIndex >= 0 && textIndex < text.length) {
+                targetChar = text[textIndex];
+            }
+            
+            // Skip if character already matches and not forcing all
+            if (!forceAll && flap.querySelector('.flap-top').textContent === targetChar) {
+                return;
+            }
+            
+            // Track this animation
+            pendingAnimations++;
+            
+            // Calculate delay with center-out pattern
+            const distFromCenter = Math.abs(i - Math.floor(flaps.length / 2));
+            const delay = distFromCenter * 30; // 30ms per unit from center
+            
+            // Animate this flap
+            animateFlap(flap, targetChar, delay, () => {
+                pendingAnimations--;
+                if (pendingAnimations === 0) {
+                    state.isAnimating = false;
+                }
+            });
+        });
+    });
+    
+    // If no animations were needed, reset state
+    if (pendingAnimations === 0) {
+        state.isAnimating = false;
+    }
+};
+
    // Update text and UI
-   const updateText = (text) => {
-       state.text = text.toUpperCase();
+  //  const updateText = (text) => {
+  //      state.text = text.toUpperCase();
+  // Update text for row 1
+const updateTextRow1 = (text) => {
+  state.textRow1 = text.toUpperCase();
+  
+  // Update input if it doesn't match
+  if (elements.textInputRow1.value.toUpperCase() !== state.textRow1) {
+      elements.textInputRow1.value = state.textRow1;
+  }
+};
+
+// Update text for row 2
+const updateTextRow2 = (text) => {
+  state.textRow2 = text.toUpperCase();
+  
+  // Update input if it doesn't match
+  if (elements.textInputRow2.value.toUpperCase() !== state.textRow2) {
+      elements.textInputRow2.value = state.textRow2;
+  }
+};
        
        // Update active button
        elements.phraseBtns.forEach(btn => {
