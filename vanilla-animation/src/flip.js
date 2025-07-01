@@ -1,4 +1,4 @@
-   // Constants
+ // Constants
    const CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;-+/!?@#$%&*() ";
    const ANIMATION_DURATION = 180; // ms 
    const FLIP_TIMING = "cubic-bezier(0.34, 1.56, 0.64, 1)"; // Bouncy, realistic curve
